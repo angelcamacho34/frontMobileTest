@@ -1,6 +1,6 @@
 # Intercam frontend/mobile test
 
-### Ejecucion del proyecto web 
+### Ejecución del proyecto web 
 Para ejecutar el proyecto sigue los siguientes pasos:
 
 * Descomprime el archivo .zip que recibiste o descargalo de [Github](https://github.com/angelcamacho34/frontMobileTest).
