@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
+import { Router, NavigationEnd } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NavController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -13,45 +13,24 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      url: '/add',
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
+      url: '/list',
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private navCtrl: NavController,
+    private router: Router
   ) {
     this.initializeApp();
   }
+  name = 'Agregar';
+  icon = 'person-add-outline';
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -61,9 +40,27 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    this.router.events.subscribe(res => {
+
+      if (res instanceof NavigationEnd) {
+        const url = res.url.split('?');
+        if (res.url.indexOf('?') > -1) {
+          this.name = 'Editar';
+          this.icon = 'create-outline';
+        } else {
+          this.name = 'Agregar';
+          this.icon = 'person-add-outline';
+        }
+
+        this.selectedIndex = this.appPages.findIndex(page => page.url === url[0]);
+      }
+    });
+
+  }
+  selectItem(index: number) {
+    if (index !== this.selectedIndex) {
+      this.selectedIndex = index;
+      this.navCtrl.navigateRoot(this.appPages[index].url);
     }
   }
 }

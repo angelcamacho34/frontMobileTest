@@ -1,0 +1,60 @@
+.divider {
+    --padding-start: 0px;
+    --padding-end: 0px;
+}
+
+.swipe-img {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    animation-name: swipe;
+    animation-duration: 10s;
+    opacity: 0;
+}
+/* The animation code */
+@keyframes swipe {
+    0% {
+        transform: translateX(25px);
+        opacity: 1;
+    }
+    25% {
+        transform: translateX(-25px);
+    }
+    50% {
+        transform: translateX(25px);
+    }
+    75% {
+        transform: translateX(-25px);
+    }
+    100% {
+        transform: translateX(25px);
+        opacity: 0;
+    }
+}
+.grid-header {
+    ion-col {
+        display: flex;
+        align-items: center;
+    }
+    ion-label {
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
+.grid-content {
+    font-size: 0.9em;
+}
+.item {
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+}
+.px-0 {
+    padding-left: 0;
+    padding-right: 0;
+}
+.flex-center-y {
+    display: flex;
+    align-items: center;
+}

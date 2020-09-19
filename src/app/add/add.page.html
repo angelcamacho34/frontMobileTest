@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agregar Empleado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-card>
+    <ion-grid fixed [formGroup]="employeeForm">
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input type="text" formControlName="nombre" maxlength="512"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Apellido Paterno</ion-label>
+            <ion-input type="text" formControlName="apellidoPaterno" maxlength="512"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Apellido Materno</ion-label>
+            <ion-input type="text" formControlName="apellidoMaterno" maxlength="512"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Fecha de Nacimiento</ion-label>
+            <ion-datetime displayFormat="YYYY/MM/DD" pickerFormat="YYYY/MM/DD" cancelText="Cancelar" doneText="Aceptar"
+              placeholder="AAAA/MM/DD" formControlName="fechaNacimiento" [max]="todayISO">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Ingresos</ion-label>
+            <ion-input type="text" inputmode="numeric" formControlName="ingresos" maxlength="11"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="floating">Código Postal</ion-label>
+            <ion-input  type="text" maxlength="5" inputmode="numeric" formControlName="codigoPostal"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="6">
+          <ion-button (click)="save()" expand="block" fill="outline" shape="round" [disabled]="employeeForm.invalid">
+            Guardar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-center">
+        <ion-col size="6">
+          <ion-button (click)="back()" color="danger" expand="block" fill="outline" shape="round">
+            Cancelar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

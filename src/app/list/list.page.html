@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Lista de Empleados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-searchbar class="px-0" mode="ios" animated placeholder="Ingresa un ID" [(ngModel)]="idSearch"
+           inputmode="numeric" type="number"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row class="grid-header">
+      <ion-item-divider class="divider">
+        <ion-col size="1.5">
+          <ion-label color="primary">ID</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-label color="primary">Nombre</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-label color="primary">Apellido Paterno</ion-label>
+        </ion-col>
+        <ion-col size="3">
+          <ion-label color="primary">Apellido Materno</ion-label>
+        </ion-col>
+        <ion-col size="1.5"></ion-col>
+      </ion-item-divider>
+    </ion-row>
+
+    <ion-row class="grid-content" *ngFor="let employee of (employees | filterEmployees : idSearch)">
+      <ion-col size="12" class="ion-no-padding">
+        <ion-item-sliding>
+          <ion-item class="item ion-no-padding">
+            <ion-grid class="px-0">
+              <ion-row>
+                <ion-col size="1.5">
+                  {{employee.id}}
+                </ion-col>
+                <ion-col size="3">{{employee.nombre}}</ion-col>
+                <ion-col size="3">{{employee.apellidoPaterno}}</ion-col>
+                <ion-col size="3">{{employee.apellidoMaterno}}</ion-col>
+                <ion-col size="1.5" (click)="employee.isMoreVisible=!employee.isMoreVisible">
+                  <ion-icon *ngIf="!employee.isMoreVisible" 
+                    name="chevron-down-outline"></ion-icon>
+                  <ion-icon *ngIf="employee.isMoreVisible" 
+                    name="chevron-up-outline"></ion-icon>
+                  <img class="swipe-img" src="/assets/icon/swipe.png" alt="">
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="employee.isMoreVisible">
+                <ion-col size="4">
+                  <ion-note>Fecha de nac.</ion-note>
+                  <div>{{employee.fechaNacimiento | date:'yyyy/MM/dd'}}</div>
+                </ion-col>
+                <ion-col size="3.5" *ngIf="employee.ingresos">
+                  <ion-note>Ingresos</ion-note>
+                  <div>{{employee.ingresos | currency:'USD'}}</div>
+                </ion-col>
+                <ion-col size="3.5">
+                  <ion-note>Codigo Postal</ion-note>
+                  <div>{{employee.codigoPostal}}</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option (click)="edit(employee.id)">
+              <ion-icon name="create-outline" size="large" slot="icon-only"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="delete(employee.id)">
+              <ion-icon slot="start" name="close-circle-outline" size="large" slot="icon-only"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+
+        </ion-item-sliding>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="edit()">
+      <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
